@@ -1,0 +1,94 @@
+{% extends 'statements/main.html' %}
+
+
+{% block content %}
+<div class="container">
+    <div class="section" style="margin-top: 25px;">
+        <H2 class="text-center"> Compare PDF data with Database Record</H2>
+        <hr/>
+        <form action="{% url 'search'%}" method="post" enctype="multipart/form-data" style="margin-top: 40px;">
+        {% csrf_token %}
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col-4">
+                        <label class="form-label text-muted"> Upload only PDF file.  </label>
+                        {{ form.file }}
+                    </div>
+                </div>
+                    <div class="col-auto" style="margin-top:20px;">
+                        <button type="submit" class="btn btn-primary mb-3">Search</button>
+                    </div>
+            </div>
+        </form>
+        <div class="row" style="display:{% if message %} '' {% else %} None {% endif %}">
+            <div class="col-12">
+                <p style="color: red;"> CANNOT PARSE FILE. PLEASE UPLOAD A PDF FILE. </p>
+            </div>
+        </div>
+        <div class="col-12" style="display:{% if message %} None {% else %} '' {% endif %}" >
+            <div class="row" style="display:{% if items %} '' {% else %} None {% endif %}">
+                <div class="col-6">
+                    <p class="text-center" style="font-weight: 600; "> FILE:  {{file_name}} </p>
+                </div>
+                <div class="col-6">
+                    <p class="text-center" style="font-weight: 600; "> Database Record </p>
+                </div>
+            </div>
+            <div class="row" style="display:{% if items %} '' {% else %} None {% endif %}">
+            <div class="col-6">
+                <table class="table table-bordered">
+                  {%for key,value in items.source.items%}
+                  <thead>
+                    <tr>
+                      <th scope="row">{{key}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {%for v in value.items%}
+                    <tr>
+                      <td scope="row">{{v.key}}</td>
+                      <td>{{v.value}}</td>
+                    </tr>
+                    {%endfor%}
+                    <tr>
+                      <th scope="row">Total</th>
+                      <th>{{value.total}}</th>
+                    </tr>
+                  </tbody>
+                  {%endfor%}
+                </table>
+            </div>
+            <div class="col-6">
+                {% if row%}
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="row">Principal Funds Available</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {%for r, v in row.items%}
+                    <tr>
+                        {% if r == "total" %}
+                            <th scope="row"> Total </th>
+                            <th scope="row"> {{v}} </th>
+                        {% else %}
+                            <td scope="row">{{r}}</td>
+                            <td scope="row">{{v}}</td>
+                        {%endif%}
+                    </tr>
+                    {%endfor%}
+                  </tbody>
+                </table>
+                {% else %}
+                    <p style="color: red;" class="text-center"> No record matching file date! Upload the Loan Level Data
+                    for comparison. </p>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

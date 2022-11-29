@@ -1,0 +1,31 @@
+{% extends 'statements/main.html' %}
+
+
+{% block content %}
+<div class="container">
+    <div class="section" style="margin-top: 25px;">
+        <H2 class="text-center"> Upload Loan Level Data files</H2>
+        <hr/>
+        <form action="{% url 'upload'%}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col-4">
+                        <label class="form-label text-muted"> Upload only CSV file. </label>
+                        {{ form.file }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Upload</button>
+            </div>
+        </form>
+        <div class="row">
+            <div class="{% if not error %} col-6 {% else %} text-danger col-6 {% endif %}">
+                <p> {{message}} </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

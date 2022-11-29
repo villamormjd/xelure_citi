@@ -1,0 +1,90 @@
+{% extends 'statements/main.html' %}
+
+
+{% block content %}
+<div class="container">
+    <div class="section" style="margin-top: 25px;">
+        <h1 class="text-center"> Xelure Citi Case Study</h1>
+        <hr/>
+        <div class="row">
+            <h3> About the Project</h3>
+        </div>
+        <div class="row">
+            <p class="lead">
+              This project was created to provide analyzation and validation against the data.
+                This project is consist of two (2) tabs. "Check File" and "Upload File"
+            </p>
+            <ul>
+                <li> <strong> Check File: </strong> This tab is where you compare the data from Certificate Holder Statements
+                and Enhanced Loan-Level Data. </li>
+                <li> <strong> Upload File: </strong> This tab is where you upload csv file/s from Enhanced Loan Level Data. </li>
+            </ul>
+        </div>
+        <div>
+             <hr/>
+        <div class="row">
+            <h3> Findings and Notes </h3>
+        </div>
+        <div class="row">
+            <p class="lead">
+              I didn't have problem working with Certificate Holders Statements PDF Files, as all were formatted the same.
+                In terms of Enhanced Loan-Level Data Files. The columns names are hard to determine which columns corresponds
+                to PDF File data. I only determined the following:
+            </p>
+            <ul>
+                <li> Scheduled Principal </li>
+                <li> Curtailments </li>
+                <li> Prepayment </li>
+                <li> Insurance Fee </li>
+            </ul>
+        </div>
+            <div class="row">
+                <p class="lead">I had a hard time to derive the <strong>Net Liquidation Proceeds </strong>, I noticed this item is the
+               sum of <strong class="text-danger"> Principal Losses </strong>.
+                    I used the Principal Losses to counter check the Net Liquidation Proceeds
+            </p>
+            </div>
+        </div>
+        <hr/>
+        <div>
+        <div class="row">
+            <h3> Check File </h3>
+        </div>
+        <div class="row">
+            <p class="lead">
+              For simplicity of this project, I only worked with the page of the PDF files where the
+                <strong><em class="text-danger">"Total Principal Fund Available"</em> </strong> is located. Assuming all
+                PDF files have the same format.
+            </p>
+        </div>
+        <div class="row">
+            <p class="lead">
+              This tab will extract the data needed from pdf and will create a table --
+                I only worked with "SOURCE OF FUNDS" column. It will parse the file date <em class="text-danger">(yy-mm)</em>
+                from the file name and will query in the database all the records with the same file date. Once queried, the records
+                will be accumulated and will also form a table for comparison.
+            </p>
+        </div>
+        <div class="row">
+            <p class="lead">
+              I only uploaded the columns needed for "Principal Funds" into the database.
+            </p>
+        </div>
+        </div>
+        <div>
+            <hr/>
+            <div class="row">
+                <h3> Upload File </h3>
+            </div>
+            <div class="row">
+                <p class="lead">
+                  For the purpose of this case study, I only uploaded columns needed for Principal Funds.
+                    You can upload multiple files at once. If the file is already uploaded, it will tell the file already exists.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
